@@ -28,7 +28,8 @@ class CezarCode:
         return self.content
 nsfw = {
     "k": 0,
-    "m": ''
+    "m": '',
+    'o': None
 }
 content = None
 for arg in sys.argv[1:]:
@@ -42,7 +43,6 @@ for arg in sys.argv[1:]:
 if content is None:
     raise AttributeError("content not defined")
 key = int(nsfw['k'])
-# print(key)
 def code():
     global key
     print(CezarCode(content, key))
@@ -55,11 +55,19 @@ def file():
         content = file.read()
     return content
 def file_code():
-    global key
-    print(CezarCode(file(), key))
+    global key, nsfw
+    out = CezarCode(file(), key*-1)
+    print(out)
+    if nsfw['o'] is not None:
+        with open(nsfw['0'], 'w') as fife:
+            fife.write(out)
 def file_decode():
     global key
-    print(CezarCode(file(), key*-1))
+    out = CezarCode(file(), key*-1)
+    print(out)
+    if nsfw['o'] is not None:
+        with open(nsfw['0'], 'w') as fife:
+            fife.write(out)
 mode_nsfw = {
     '': code,
     'code': code,
