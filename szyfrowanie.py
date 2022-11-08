@@ -30,6 +30,7 @@ nsfw = {
     "k": 0,
     "m": ''
 }
+content = None
 for arg in sys.argv[1:]:
     if arg[0] == '-':
         try:
@@ -40,6 +41,34 @@ for arg in sys.argv[1:]:
         content = arg
 if content is None:
     raise AttributeError("content not defined")
+key = int(nsfw['k'])
+# print(key)
+def code():
+    global key
+    print(CezarCode(content, key))
+def decode():
+    global key
+    print(CezarCode(content, key*-1))
+def file():
+    global content, key
+    with open(content, mode='r') as file:
+        content = file.read()
+    return content
+def file_code():
+    global key
+    print(CezarCode(file(), key))
+def file_decode():
+    global key
+    print(CezarCode(file(), key*-1))
+mode_nsfw = {
+    '': code,
+    'code': code,
+    'decode': decode,
+    'file-code': file_code,
+    'file-decode': file_decode
+}
 
-key = nsfw['k']
-print(content, nsfw, CezarCode(content, key))
+try:
+    mode_nsfw[nsfw['m']]()
+except IndexError:
+    raise AttributeError("This mode is invalid")
