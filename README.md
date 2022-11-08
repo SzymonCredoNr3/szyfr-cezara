@@ -1,4 +1,4 @@
-# Szyfr cezar
+# Szyfr cezara
 Projekt aplikacji konsolowej szyfrującej za pomocą szyfru cezara
 data: 08.11.2022
 
